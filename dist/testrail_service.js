@@ -24,7 +24,7 @@
       var case_ids, testrun_id;
       case_ids = (yield this.api.fetchCases());
       if (this.opts.newrun === true) {
-        testrun_id = (yield this.api.generateTestRun(case_ids));
+        testrun_id = (yield this.api.generateTestRun(case_ids, this.opts.runid));
       } else {
         testrun_id = this.opts.runid;
       }

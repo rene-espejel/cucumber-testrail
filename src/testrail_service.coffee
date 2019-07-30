@@ -14,7 +14,7 @@ class TestRailService
   sendTestResults: co.wrap ->
     case_ids = yield @api.fetchCases()
     if @opts.newrun == true
-      testrun_id = yield @api.generateTestRun case_ids
+      testrun_id = yield @api.generateTestRun case_ids, @opts.runid
     else
       testrun_id = @opts.runid
     console.log("Test Run Id: " + testrun_id)

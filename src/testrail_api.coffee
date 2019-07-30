@@ -1,8 +1,8 @@
 Table = require 'cli-table'
 PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id']
-#FILTERS = ['section_id', 'suite_id']
+FILTERS = ['section_id', 'suite_id']
 REQUESTS =
-  addPlanEntry: 'add_plan_entry/{{testrun_id}}'
+  addPlanEntry: 'add_plan_entry/{{testplan_id}}'
   getCases: 'get_cases/{{project_id}}&suite_id={{suite_id}}&section_id={{section_id}}'
   addResults: 'add_results_for_cases/{{testrun_id}}'
 
@@ -15,6 +15,7 @@ class TestRailApi
 
 
   addResults: (testrun_id) ->
+    console.log("TR id en add results: " + testrun_id)
     url = @_generateUrl 'addResults', {testrun_id}
     yield @request_manager.send 'post', url: url, body:
       results: @metrics
@@ -37,8 +38,9 @@ class TestRailApi
     resp.map ({id}) -> id
 
 
-  generateTestRun: (case_ids) ->
-    url = @_generateUrl 'addPlanEntry'
+  generateTestRun: (case_ids, testplan_id) ->
+    console.log("TP id en plan entry: " + testplan_id)
+    url = @_generateUrl 'addPlanEntry', {testplan_id}
     body =
       suite_id: @suite_config.suite_id
       name: "Test Run: #{@opts.runname} - #{(new Date()).toLocaleDateString()}"
