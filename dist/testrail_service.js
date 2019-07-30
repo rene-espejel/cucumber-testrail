@@ -24,7 +24,9 @@
     });
 
     TestRailService.prototype.sendTestResults = co.wrap(function*() {
-      var case_ids, testrun_id;
+      var case_ids, runid, testrun_id;
+      runid = this.opts.runid;
+      console.log("Run Id: " + runid);
       case_ids = (yield this.api.fetchCases());
       testrun_id = (yield this.api.generateTestRun(case_ids));
       console.log("Test Run Id: " + testrun_id);

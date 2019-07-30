@@ -4,14 +4,14 @@
 
   Table = require('cli-table');
 
-  PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id'];
+  PARAMS = ['project_id', 'suite_id', 'section_id', 'runid'];
 
   FILTERS = ['section_id', 'suite_id'];
 
   REQUESTS = {
-    addPlanEntry: 'add_plan_entry/{{testrun_id}}',
+    addPlanEntry: 'add_plan_entry/{{runid}}',
     getCases: 'get_cases/{{project_id}}&suite_id={{suite_id}}&section_id={{section_id}}',
-    addResults: 'add_results_for_cases/{{testrun_id}}'
+    addResults: 'add_results_for_cases/{{runid}}'
   };
 
   RequestManager = require('./request_manager');

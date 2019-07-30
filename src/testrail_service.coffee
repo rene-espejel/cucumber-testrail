@@ -13,6 +13,8 @@ class TestRailService
 
 
   sendTestResults: co.wrap ->
+    runid = @opts.runid
+    console.log("Run Id: " + runid)
     case_ids = yield @api.fetchCases()
     testrun_id = yield @api.generateTestRun case_ids
     console.log("Test Run Id: " + testrun_id)
