@@ -13,7 +13,6 @@
         this.suite_config = suite_config;
         this.opts = opts;
         this.testrail_metrics = testrail_metrics;
-        console.log("Opts en TR service: " + this.opts.runid + " Run Name: " + this.opts.runname);
         this.api = new TestRailApi(this.config, this.opts, this.suite_config, this.testrail_metrics[this.suite_config.project_symbol] || []);
       }
 
@@ -24,11 +23,13 @@
     });
 
     TestRailService.prototype.sendTestResults = co.wrap(function*() {
-      var case_ids, runid, testrun_id;
-      runid = this.opts.runid;
-      console.log("Run Id: " + runid);
+      var case_ids, testrun_id;
       case_ids = (yield this.api.fetchCases());
-      testrun_id = (yield this.api.generateTestRun(case_ids));
+      if (this.opts.newrun === true) {
+        testrun_id = (yield this.api.generateTestRun(case_ids));
+      } else {
+        testrun_id = this.opts.runid;
+      }
       console.log("Test Run Id: " + testrun_id);
       return (yield this.api.addResults(testrun_id));
     });
