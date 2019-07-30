@@ -13,7 +13,7 @@
     "lodash": "^4.17.15",
     "minimist": "1.2.0",
     "mz": "2.4.0",
-    "request-promise": "4.1.1",
+    "request-promise": "^4.2.4",
     "require-yaml": "0.0.1"
   },
   "files": [

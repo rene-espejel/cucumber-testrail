@@ -28,7 +28,7 @@ class TestRailApi
     url = @_generateUrl 'addPlanEntry', {testplan_id}
     body =
       suite_id: @suite_config.suite_id
-      name: "Test Run: #{@opts.runname} - #{(new Date()).toLocaleDateString()}"
+      name: "#{@opts.runname} - #{(new Date()).toLocaleDateString()}"
       include_all: false
       case_ids: case_ids
     resp = yield @request_manager.send 'post', {url, body}

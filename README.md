@@ -51,7 +51,7 @@ Setup on Your Project
   * -p TestRail password (required)
   * -i Test Run or Test Plan Id (required)
   * -n New Test Run, when this option is set to true a Test Plan Id is required on -i and a Test Run name is required on -t.
-  * -t Test Run name, will be added on your generated Test Run in this format: *Test Run: (specified name) - MM/dd/yyy*
+  * -t Test Run name, will be added on your generated Test Run in this format: **(specified name) - MM/dd/yyy**
 
 4) Write Cucumber Tests with proper TestRail tags!
   In order to add feature tests that correlate with the above sample suite, add the following tag to the top of your scenario:

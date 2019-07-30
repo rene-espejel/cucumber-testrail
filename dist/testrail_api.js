@@ -53,7 +53,7 @@
       url = this._generateUrl('addPlanEntry', {testplan_id});
       body = {
         suite_id: this.suite_config.suite_id,
-        name: `Test Run: ${this.opts.runname} - ${(new Date()).toLocaleDateString()}`,
+        name: `${this.opts.runname} - ${(new Date()).toLocaleDateString()}`,
         include_all: false,
         case_ids: case_ids
       };
