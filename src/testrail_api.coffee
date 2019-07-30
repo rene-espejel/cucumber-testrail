@@ -1,5 +1,5 @@
 Table = require 'cli-table'
-PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id']
+PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id', "testplan_id"]
 FILTERS = ['section_id', 'suite_id']
 REQUESTS =
   addPlanEntry: 'add_plan_entry/{{testplan_id}}'
@@ -15,7 +15,6 @@ class TestRailApi
 
 
   addResults: (testrun_id) ->
-    console.log("TR id en add results: " + testrun_id)
     url = @_generateUrl 'addResults', {testrun_id}
     yield @request_manager.send 'post', url: url, body:
       results: @metrics
@@ -39,7 +38,6 @@ class TestRailApi
 
 
   generateTestRun: (case_ids, testplan_id) ->
-    console.log("TP id en plan entry: " + testplan_id)
     url = @_generateUrl 'addPlanEntry', {testplan_id}
     body =
       suite_id: @suite_config.suite_id
@@ -52,10 +50,6 @@ class TestRailApi
 
   _generateUrl: (type, opts = {}) ->
     action = REQUESTS[type] or ''
-    values = (value for own prop, value of opts)
-    props = (prop for own prop, value of opts)
-    console.log("keys of opts: " + props)
-    console.log("values of opts: " + values)
     PARAMS.forEach (key) =>
       action = action.replace("{{#{key}}}", @suite_config[key]) if @suite_config[key] isnt undefined and opts[key] is undefined
       action = action.replace("&#{key}={{#{key}}}", '') unless @suite_config[key] isnt undefined and FILTERS.indexOf(key) isnt -1

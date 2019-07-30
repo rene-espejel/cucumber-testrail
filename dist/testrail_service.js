@@ -28,7 +28,6 @@
       } else {
         testrun_id = this.opts.runid;
       }
-      console.log("Test Run Id: " + testrun_id);
       return (yield this.api.addResults(testrun_id));
     });
 

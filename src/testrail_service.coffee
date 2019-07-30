@@ -17,7 +17,6 @@ class TestRailService
       testrun_id = yield @api.generateTestRun case_ids, @opts.runid
     else
       testrun_id = @opts.runid
-    console.log("Test Run Id: " + testrun_id)
     yield @api.addResults testrun_id
 
 module.exports = TestRailService

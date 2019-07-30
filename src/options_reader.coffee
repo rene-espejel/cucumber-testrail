@@ -13,7 +13,6 @@ class OptionsReader
     @opts = minimist process.argv[2..], alias: @alias, unknown: @unknown
     missingOptions = @_validateOptions()
     throw new Error "script is missing these required options: #{missingOptions}" if missingOptions.length
-    console.log("New Run: " + @opts.newrun + " Run Name: " + @opts.runname)
     if @opts.newrun == 'true'
       @opts.newrun = true
     if @opts.newrun == true and @opts.runname == undefined

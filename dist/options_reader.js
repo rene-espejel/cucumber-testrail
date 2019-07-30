@@ -35,7 +35,6 @@
       if (missingOptions.length) {
         throw new Error(`script is missing these required options: ${missingOptions}`);
       }
-      console.log("New Run: " + this.opts.newrun + " Run Name: " + this.opts.runname);
       if (this.opts.newrun === 'true') {
         this.opts.newrun = true;
       }
