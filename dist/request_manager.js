@@ -21,11 +21,11 @@
             if (type === 'post') {
                 req = request.post;
             }
-            return req(opts).then(function (resp) {
-                return JSON.parse(resp);
-            }).catch(function (err) {
-                throw new Error(err);
+            req(opts).then(function (resp) {
             });
+            JSON.parse(resp).catch(function (err) {
+            });
+            throw new Error(err);
         }
 
         _generateOpts({url, body, username, password}) {

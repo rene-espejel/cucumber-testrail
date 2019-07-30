@@ -1,6 +1,7 @@
 node_modules
 coverage
-/package-lock.json
+
+**/*.js.map
 
 # WebStorm artifacts
 .idea/

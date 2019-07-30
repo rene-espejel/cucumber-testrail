@@ -7,7 +7,7 @@
 
     minimist = require('minimist');
 
-    REQUIRED_SCRIPT_OPTIONS = ['result', 'write', 'username', 'password', 'config'];
+    REQUIRED_SCRIPT_OPTIONS = ['result', 'username', 'password', 'config'];
 
     OptionsReader = class OptionsReader {
         constructor() {
@@ -17,8 +17,7 @@
                 c: 'config',
                 r: 'result',
                 i: 'runid',
-                w: 'write',
-                m: 'message'
+                n: 'runname'
             };
             this.unknown = function (opt) {
                 throw new Error(`unrecognized option ${opt} passed in command line`);
@@ -42,11 +41,10 @@
             var params, required_options;
             params = Object.keys(this.opts);
             required_options = REQUIRED_SCRIPT_OPTIONS;
-            if (this.opts.write) {
-                required_options.splice(0, 1);
-            } else {
-                required_options.splice(1, 1);
-            }
+            //    if @opts.write
+            //      required_options.splice 0, 1
+            //    else
+            required_options.splice(1, 1);
             return _.compact(required_options.map(function (field) {
                 if (indexOf.call(params, field) < 0) {
                     return field;

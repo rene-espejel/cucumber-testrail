@@ -33,6 +33,6 @@
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://respejel08@bitbucket.org/respejel08/cucumber-testrail.git"
+    "url": "https://github.com/rene-espejel/cucumber-testrail.git"
   }
 }

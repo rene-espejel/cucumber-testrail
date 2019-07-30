@@ -13,8 +13,7 @@
                 this.suite_config = suite_config;
                 this.opts = opts;
                 this.testrail_metrics = testrail_metrics;
-                this.testRunId = this.opts.runId;
-                console.log("Asignacion TestRunId" + this.testRunId);
+                console.log("Opts en TR service: " + this.opts);
                 this.api = new TestRailApi(this.config, this.opts, this.suite_config, this.testrail_metrics[this.suite_config.project_symbol] || []);
             }
 
@@ -27,11 +26,8 @@
         TestRailService.prototype.sendTestResults = co.wrap(function* () {
             var case_ids, testrun_id;
             case_ids = (yield this.api.fetchCases());
-            if (this.testRunId) {
-                testrun_id = (yield this.api.generateTestRun(case_ids));
-            } else {
-                testrun_id = this.testRunId;
-            }
+            testrun_id = (yield this.api.generateTestRun(case_ids));
+            console.log("Test Run Id: " + testrun_id);
             return (yield this.api.addResults(testrun_id));
         });
 

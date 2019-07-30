@@ -11,9 +11,9 @@ class RequestManager
     req = request.post if type is 'post'
     req opts
       .then (resp) ->
-      JSON.parse resp
+    JSON.parse resp
       .catch (err) ->
-      throw new Error err
+    throw new Error err
 
 
   _generateOpts: ({url, body, username, password}) ->

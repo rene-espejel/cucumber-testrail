@@ -13,8 +13,7 @@
     TestRailService = require('./testrail_service');
 
     co(function* () {
-        var config, config_reader, cucumber_reader, e, options_reader, opts, suite_config, testrail_metrics,
-            testrail_service;
+        var config, config_reader, cucumber_reader, e, options_reader, opts, testrail_metrics;
         try {
             // holds options passed in by CLI
             opts = {};
@@ -26,21 +25,15 @@
             opts = options_reader.parse();
             config_reader = new ConfigReader(opts.config);
             config = config_reader.parse();
-            console.log("opts.write after config and options reader: " + opts.write);
-            if (opts.write) {
-                suite_config = config.suites.filter(({project_symbol}) => {
-                    return project_symbol === opts.write;
-                });
-                console.log("opts.write after weird stuff: " + opts.write);
-                if (!suite_config.length) {
-                    throw new Error(`project symbol ${opts.write} not found in cucumber_testrail.yml`);
-                }
-                testrail_service = new TestRailService(config, suite_config[0], opts, {});
-                return testrail_service.fetchScenarios();
-            }
+            //    if opts.write
+            //      suite_config = config.suites.filter ({project_symbol}) => project_symbol is opts.write
+            //      throw new Error "project symbol #{opts.write} not found in cucumber_testrail.yml" unless suite_config.length
+            //      testrail_service = new TestRailService config, suite_config[0], opts, {}
+            //      return testrail_service.fetchScenarios()
             cucumber_reader = new CucumberResultReader(config, opts.result);
             testrail_metrics = (yield cucumber_reader.parse());
             return (yield Promise.all(config.suites.map((suite_config) => {
+                var testrail_service;
                 testrail_service = new TestRailService(config, suite_config, opts, testrail_metrics);
                 return testrail_service.sendTestResults();
             })));

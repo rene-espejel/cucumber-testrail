@@ -69,10 +69,11 @@
             url = this._generateUrl('addPlanEntry');
             body = {
                 suite_id: this.suite_config.suite_id,
-                name: `Automated Test Run ${this.opts.runid} - ${(new Date()).toLocaleDateString()}`,
+                name: `Test Run: ${this.opts.runname} - ${(new Date()).toLocaleDateString()}`,
                 include_all: false,
                 case_ids: case_ids
             };
+            console.log("Test Run Name" + body.name);
             resp = (yield this.request_manager.send('post', {url, body}));
             return resp.runs[resp.runs.length - 1].id;
         }

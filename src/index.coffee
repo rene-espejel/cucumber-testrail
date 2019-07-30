@@ -18,13 +18,11 @@ co ->
     opts = options_reader.parse()
     config_reader = new ConfigReader opts.config
     config = config_reader.parse()
-    console.log("opts.write after config and options reader: " + opts.write)
-    if opts.write
-      suite_config = config.suites.filter ({project_symbol}) => project_symbol is opts.write
-      console.log("opts.write after weird stuff: " + opts.write)
-      throw new Error "project symbol #{opts.write} not found in cucumber_testrail.yml" unless suite_config.length
-      testrail_service = new TestRailService config, suite_config[0], opts, {}
-      return testrail_service.fetchScenarios()
+    #    if opts.write
+    #      suite_config = config.suites.filter ({project_symbol}) => project_symbol is opts.write
+    #      throw new Error "project symbol #{opts.write} not found in cucumber_testrail.yml" unless suite_config.length
+    #      testrail_service = new TestRailService config, suite_config[0], opts, {}
+    #      return testrail_service.fetchScenarios()
     cucumber_reader = new CucumberResultReader config, opts.result
     testrail_metrics = yield cucumber_reader.parse()
     yield Promise.all config.suites.map (suite_config) =>
