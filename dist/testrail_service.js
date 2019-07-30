@@ -13,7 +13,7 @@
         this.suite_config = suite_config;
         this.opts = opts;
         this.testrail_metrics = testrail_metrics;
-        console.log("Opts en TR service: " + this.opts.runId.toString() + " Run Name: " + this.opts.runname.toString());
+        console.log("Opts en TR service: " + this.opts.runid + " Run Name: " + this.opts.runname);
         this.api = new TestRailApi(this.config, this.opts, this.suite_config, this.testrail_metrics[this.suite_config.project_symbol] || []);
       }
 
