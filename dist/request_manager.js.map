@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "request_manager.js",
+  "sourceRoot": "../src",
+  "sources": [
+    "request_manager.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,cAAA,EAAA;;EAAA,OAAA,GAAU,OAAA,CAAQ,iBAAR;;EAEJ,iBAAN,MAAA,eAAA;IAEE,WAAa,SAAS,CAAA,CAAT,CAAA;MAAC,IAAC,CAAA;IAAF;;IAGb,IAAM,CAAC,IAAD,EAAO,CAAC,GAAD,EAAM,IAAN,CAAP,CAAA;AACJ,UAAA,IAAA,EAAA;MAAA,IAAA,GAAO,IAAC,CAAA,aAAD,CAAe;QAAA,GAAA,EAAK,GAAL;QAAU,QAAA,EAAU,IAAC,CAAA,IAAI,CAAC,QAA1B;QAAoC,QAAA,EAAU,IAAC,CAAA,IAAI,CAAC,QAApD;QAA8D,IAAA,EAAM;MAApE,CAAf;MACP,GAAA,GAAM,OAAO,CAAC;MACd,IAAsB,IAAA,KAAQ,MAA9B;QAAA,GAAA,GAAM,OAAO,CAAC,KAAd;;aACA,GAAA,CAAI,IAAJ,CACE,CAAC,IADH,CACQ,QAAA,CAAC,IAAD,CAAA;eACJ,IAAI,CAAC,KAAL,CAAW,IAAX;MADI,CADR,CAGE,CAAC,KAHH,CAGS,QAAA,CAAC,GAAD,CAAA;QACL,MAAM,IAAI,KAAJ,CAAU,GAAV;MADD,CAHT;IAJI;;IAWN,aAAe,CAAC,CAAC,GAAD,EAAM,IAAN,EAAY,QAAZ,EAAsB,QAAtB,CAAD,CAAA;aACb;QAAA,GAAA,EAAK,GAAL;QACA,OAAA,EACE;UAAA,cAAA,EAAgB;QAAhB,CAFF;QAGA,IAAA,EAAM,IAAI,CAAC,SAAL,CAAe,IAAf,CAHN;QAIA,IAAA,EAAM,CAAC,QAAD,EAAW,QAAX;MAJN;IADa;;EAhBjB;;EAwBA,MAAM,CAAC,OAAP,GAAiB;AA1BjB",
+  "sourcesContent": [
+    "request = require 'request-promise'\n\nclass RequestManager\n\n  constructor: (@opts = {}) ->\n\n\n  send: (type, {url, body}) ->\n    opts = @_generateOpts url: url, username: @opts.username, password: @opts.password, body: body\n    req = request.get\n    req = request.post if type is 'post'\n    req opts\n      .then (resp) ->\n        JSON.parse resp\n      .catch (err) ->\n        throw new Error err\n\n\n  _generateOpts: ({url, body, username, password}) ->\n    url: url\n    headers:\n      'Content-Type': 'application/json'\n    body: JSON.stringify body\n    auth: {username, password}\n\n\nmodule.exports = RequestManager\n"
+  ]
+}

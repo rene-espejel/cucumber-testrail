@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "testrail_service.js",
+  "sourceRoot": "../src",
+  "sources": [
+    "testrail_service.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,WAAA,EAAA,eAAA,EAAA;;EAAA,EAAA,GAAK,OAAA,CAAQ,IAAR;;EAEL,WAAA,GAAc,OAAA,CAAQ,gBAAR;;EAER;IAAN,MAAA,gBAAA;MAEE,WAAa,OAAA,cAAA,MAAA,kBAAA,CAAA;QAAC,IAAC,CAAA;QAAQ,IAAC,CAAA;QAAc,IAAC,CAAA;QAAM,IAAC,CAAA;QAC5C,IAAC,CAAA,SAAD,GAAa,IAAC,CAAA,IAAI,CAAC;QACnB,OAAO,CAAC,GAAR,CAAY,sBAAA,GAAyB,IAAC,CAAA,SAAtC;QACA,IAAC,CAAA,GAAD,GAAO,IAAI,WAAJ,CAAgB,IAAC,CAAA,MAAjB,EAAyB,IAAC,CAAA,IAA1B,EAAgC,IAAC,CAAA,YAAjC,EAAgD,IAAC,CAAA,gBAAiB,CAAA,IAAC,CAAA,YAAY,CAAC,cAAd,CAAlB,IAAmD,EAAnG;MAHI;;IAFf;;8BAQE,cAAA,GAAgB,EAAE,CAAC,IAAH,CAAQ,SAAA,CAAA,CAAA;aACtB,CAAA,MAAM,IAAC,CAAA,GAAG,CAAC,qBAAL,CAAA,CAAN;IADsB,CAAR;;8BAIhB,eAAA,GAAiB,EAAE,CAAC,IAAH,CAAQ,SAAA,CAAA,CAAA;AACvB,UAAA,QAAA,EAAA;MAAA,QAAA,GAAW,CAAA,MAAM,IAAC,CAAA,GAAG,CAAC,UAAL,CAAA,CAAN;MACX,IAAG,IAAC,CAAA,SAAJ;QACE,UAAA,GAAa,CAAA,MAAM,IAAC,CAAA,GAAG,CAAC,eAAL,CAAqB,QAArB,CAAN,EADf;OAAA,MAAA;QAGE,UAAA,GAAa,IAAC,CAAA,UAHhB;;aAIA,CAAA,MAAM,IAAC,CAAA,GAAG,CAAC,UAAL,CAAgB,UAAhB,CAAN;IANuB,CAAR;;;;;;EAQnB,MAAM,CAAC,OAAP,GAAiB;AAxBjB",
+  "sourcesContent": [
+    "co = require 'co'\n\nTestRailApi = require './testrail_api'\n\nclass TestRailService\n\n  constructor: (@config, @suite_config, @opts, @testrail_metrics) ->\n    @testRunId = @opts.runId\n    console.log(\"Asignacion TestRunId\" + @testRunId)\n    @api = new TestRailApi @config, @opts, @suite_config, (@testrail_metrics[@suite_config.project_symbol] or [])\n\n\n  fetchScenarios: co.wrap ->\n    yield @api.fetchCaseDescriptions()\n\n\n  sendTestResults: co.wrap ->\n    case_ids = yield @api.fetchCases()\n    if @testRunId\n      testrun_id = yield @api.generateTestRun case_ids\n    else\n      testrun_id = @testRunId\n    yield @api.addResults testrun_id\n\nmodule.exports = TestRailService\n"
+  ]
+}

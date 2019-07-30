@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "options_reader.js",
+  "sourceRoot": "../src",
+  "sources": [
+    "options_reader.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,aAAA,EAAA,uBAAA,EAAA,CAAA,EAAA,QAAA;IAAA;;EAAA,CAAA,GAAI,OAAA,CAAQ,QAAR;;EACJ,QAAA,GAAW,OAAA,CAAQ,UAAR;;EACX,uBAAA,GAA0B,CAAC,QAAD,EAAW,OAAX,EAAoB,UAApB,EAAgC,UAAhC,EAA4C,QAA5C;;EAEpB,gBAAN,MAAA,cAAA;IAEE,WAAa,CAAA,CAAA;MACX,IAAC,CAAA,KAAD,GAAS;QAAA,CAAA,EAAG,UAAH;QAAe,CAAA,EAAG,UAAlB;QAA8B,CAAA,EAAG,QAAjC;QAA2C,CAAA,EAAG,QAA9C;QAAwD,CAAA,EAAG,OAA3D;QAAoE,CAAA,EAAG,OAAvE;QAAgF,CAAA,EAAG;MAAnF;MACT,IAAC,CAAA,OAAD,GAAW,QAAA,CAAC,GAAD,CAAA;QAAS,MAAM,IAAI,KAAJ,CAAU,CAAA,oBAAA,CAAA,CAAuB,GAAvB,CAA2B,uBAA3B,CAAV;MAAf;IAFA;;IAKb,KAAO,CAAA,CAAA;AACL,UAAA;MAAA,IAAC,CAAA,IAAD,GAAQ,QAAA,CAAS,OAAO,CAAC,IAAK,SAAtB,EAA4B;QAAA,KAAA,EAAO,IAAC,CAAA,KAAR;QAAe,OAAA,EAAS,IAAC,CAAA;MAAzB,CAA5B;MACR,cAAA,GAAiB,IAAC,CAAA,gBAAD,CAAA;MACjB,IAAiF,cAAc,CAAC,MAAhG;QAAA,MAAM,IAAI,KAAJ,CAAU,CAAA,0CAAA,CAAA,CAA6C,cAA7C,CAAA,CAAV,EAAN;;aACA,IAAC,CAAA;IAJI;;IAOP,gBAAkB,CAAA,CAAA;AAChB,UAAA,MAAA,EAAA;MAAA,MAAA,GAAS,MAAM,CAAC,IAAP,CAAY,IAAC,CAAA,IAAb;MACT,gBAAA,GAAmB;MACnB,IAAG,IAAC,CAAA,IAAI,CAAC,KAAT;QACE,gBAAgB,CAAC,MAAjB,CAAwB,CAAxB,EAA2B,CAA3B,EADF;OAAA,MAAA;QAGE,gBAAgB,CAAC,MAAjB,CAAwB,CAAxB,EAA2B,CAA3B,EAHF;;aAIA,CAAC,CAAC,OAAF,CAAU,gBAAgB,CAAC,GAAjB,CAAqB,QAAA,CAAC,KAAD,CAAA;QAC7B,IAAa,aAAS,MAAT,EAAA,KAAA,KAAb;iBAAA,MAAA;;MAD6B,CAArB,CAAV;IAPgB;;EAdpB;;EAyBA,MAAM,CAAC,OAAP,GAAiB;AA7BjB",
+  "sourcesContent": [
+    "_ = require 'lodash'\nminimist = require 'minimist'\nREQUIRED_SCRIPT_OPTIONS = ['result', 'write', 'username', 'password', 'config']\n\nclass OptionsReader\n\n  constructor: ->\n    @alias = u: 'username', p: 'password', c: 'config', r: 'result', i: 'runid', w: 'write', m: 'message'\n    @unknown = (opt) -> throw new Error \"unrecognized option #{opt} passed in command line\"\n\n\n  parse: ->\n    @opts = minimist process.argv[2..], alias: @alias, unknown: @unknown\n    missingOptions = @_validateOptions()\n    throw new Error \"script is missing these required options: #{missingOptions}\" if missingOptions.length\n    @opts\n\n\n  _validateOptions: ->\n    params = Object.keys @opts\n    required_options = REQUIRED_SCRIPT_OPTIONS\n    if @opts.write\n      required_options.splice 0, 1\n    else\n      required_options.splice 1, 1\n    _.compact required_options.map (field) ->\n      field unless field in params\n\n\nmodule.exports = OptionsReader\n"
+  ]
+}

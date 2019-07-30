@@ -1,0 +1,38 @@
+{
+  "name": "cucumber-testrail",
+  "version": "0.0.1",
+  "author": "Rene Espejel",
+  "bin": {
+    "cucumber-testrail": "bin/cucumber-testrail"
+  },
+  "description": "Pushes Cucumber Results to TestRail",
+  "dependencies": {
+    "cli-table": "0.3.1",
+    "co": "4.6.0",
+    "coffeescript": "^2.4.1",
+    "lodash": "4.16.4",
+    "minimist": "1.2.0",
+    "mz": "2.4.0",
+    "request-promise": "4.1.1",
+    "require-yaml": "0.0.1"
+  },
+  "devDependencies": {
+    "coffee-script": "1.11.1",
+    "cucumber": "1.3.1",
+    "dependency-lint": "4.2.0",
+    "expect.js": "0.3.1",
+    "express": "4.14.0"
+  },
+  "files": [
+    "bin/cucumber-testrail",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://respejel08@bitbucket.org/respejel08/cucumber-testrail.git"
+  }
+}
