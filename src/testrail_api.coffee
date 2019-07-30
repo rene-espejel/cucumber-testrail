@@ -1,10 +1,10 @@
 Table = require 'cli-table'
-PARAMS = ['project_id', 'suite_id', 'section_id', 'runid']
-FILTERS = ['section_id', 'suite_id']
+PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id']
+#FILTERS = ['section_id', 'suite_id']
 REQUESTS =
-  addPlanEntry: 'add_plan_entry/{{runid}}'
+  addPlanEntry: 'add_plan_entry/{{testrun_id}}'
   getCases: 'get_cases/{{project_id}}&suite_id={{suite_id}}&section_id={{section_id}}'
-  addResults: 'add_results_for_cases/{{runid}}'
+  addResults: 'add_results_for_cases/{{testrun_id}}'
 
 RequestManager = require './request_manager'
 
@@ -44,18 +44,15 @@ class TestRailApi
       name: "Test Run: #{@opts.runname} - #{(new Date()).toLocaleDateString()}"
       include_all: false
       case_ids: case_ids
-    console.log("Test Run Name" + body.name)
     resp = yield @request_manager.send 'post', {url, body}
     resp.runs[resp.runs.length - 1].id
 
 
   _generateUrl: (type, opts = {}) ->
     action = REQUESTS[type] or ''
-
+    opts.forEach (i) =>
+      console.log("Iterador opts: " + i)
     PARAMS.forEach (key) =>
-      console.log("key: " + key)
-      console.log("@suite_config: " + @suite_config)
-      console.log("@opts: " + opts)
       action = action.replace("{{#{key}}}", @suite_config[key]) if @suite_config[key] isnt undefined and opts[key] is undefined
       action = action.replace("&#{key}={{#{key}}}", '') unless @suite_config[key] isnt undefined and FILTERS.indexOf(key) isnt -1
       action = action.replace("{{#{key}}}", opts[key]) unless opts[key] is undefined
