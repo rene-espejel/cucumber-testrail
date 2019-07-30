@@ -50,8 +50,10 @@ class TestRailApi
 
   _generateUrl: (type, opts = {}) ->
     action = REQUESTS[type] or ''
-    opts.forEach (i) =>
-      console.log("Iterador opts: " + i)
+    values = (value for own prop, value of opts)
+    props = (prop for own prop, value of opts)
+    console.log("keys of opts: " + props)
+    console.log("values of opts: " + values)
     PARAMS.forEach (key) =>
       action = action.replace("{{#{key}}}", @suite_config[key]) if @suite_config[key] isnt undefined and opts[key] is undefined
       action = action.replace("&#{key}={{#{key}}}", '') unless @suite_config[key] isnt undefined and FILTERS.indexOf(key) isnt -1
