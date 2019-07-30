@@ -18,10 +18,8 @@
 
     };
 
-    TestRailService.prototype.fetchScenarios = co.wrap(function*() {
-      return (yield this.api.fetchCaseDescriptions());
-    });
-
+    //  fetchScenarios: co.wrap ->
+    //    yield @api.fetchCaseDescriptions()
     TestRailService.prototype.sendTestResults = co.wrap(function*() {
       var case_ids, testrun_id;
       case_ids = (yield this.api.fetchCases());

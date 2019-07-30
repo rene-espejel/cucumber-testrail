@@ -6,7 +6,7 @@ class OptionsReader
 
   constructor: ->
     @alias =
-      u: 'username', p: 'password', c: 'config', r: 'result', i: 'runid', nr: 'newrun', n: 'runname'
+      u: 'username', p: 'password', c: 'config', r: 'result', i: 'runid', n: 'newrun', t: 'runname'
     @unknown = (opt) -> throw new Error "unrecognized option #{opt} passed in command line"
 
   parse: ->
@@ -15,7 +15,7 @@ class OptionsReader
     throw new Error "script is missing these required options: #{missingOptions}" if missingOptions.length
     console.log("New Run: " + @opts.newrun + " Run Name: " + @opts.runname)
     if @opts.newrun == true && @opts.runname == undefined
-      throw new Error "If a new test run is generated a run name need to be specified with -n"
+      throw new Error "If a new test run is generated a test run name needs to be specified with -t"
     @opts
 
   _validateOptions: ->

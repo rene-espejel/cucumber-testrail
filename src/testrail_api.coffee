@@ -22,14 +22,14 @@ class TestRailApi
     console.log "Successfully added the following results for project symbol #{@suite_config.project_symbol} to TestRail. Visit #{testrun_url} to access."
 
 
-  fetchCaseDescriptions: ->
-# disables section_id filter to return table for entire suite
-    @suite_config.section_id = undefined
-    resp = yield @request_manager.send 'get', url: @_generateUrl 'getCases'
-    table = new Table head: ['Case ID', 'Section ID', 'Title']
-    resp.forEach ({section_id, title, id}) ->
-      table.push [id, section_id, title]
-    console.log table.toString()
+#  fetchCaseDescriptions: ->
+#  disables section_id filter to return table for entire suite
+#    @suite_config.section_id = undefined
+#    resp = yield @request_manager.send 'get', url: @_generateUrl 'getCases'
+#    table = new Table head: ['Case ID', 'Section ID', 'Title']
+#    resp.forEach ({section_id, title, id}) ->
+#      table.push [id, section_id, title]
+#    console.log table.toString()
 
 
   fetchCases: ->
@@ -53,8 +53,11 @@ class TestRailApi
     action = REQUESTS[type] or ''
     PARAMS.forEach (key) =>
       action = action.replace("{{#{key}}}", @suite_config[key]) if @suite_config[key] isnt undefined and opts[key] is undefined
+      console.log("action: " + action)
       action = action.replace("&#{key}={{#{key}}}", '') unless @suite_config[key] isnt undefined and FILTERS.indexOf(key) isnt -1
+      console.log("action: " + action)
       action = action.replace("{{#{key}}}", opts[key]) unless opts[key] is undefined
+      console.log("action: " + action)
     "#{@config.testrail_url}/api/v2/#{action}"
 
 

@@ -17,8 +17,8 @@
         c: 'config',
         r: 'result',
         i: 'runid',
-        nr: 'newrun',
-        n: 'runname'
+        n: 'newrun',
+        t: 'runname'
       };
       this.unknown = function(opt) {
         throw new Error(`unrecognized option ${opt} passed in command line`);
@@ -37,7 +37,7 @@
       }
       console.log("New Run: " + this.opts.newrun + " Run Name: " + this.opts.runname);
       if (this.opts.newrun === true && this.opts.runname === void 0) {
-        throw new Error("If a new test run is generated a run name need to be specified with -n");
+        throw new Error("If a new test run is generated a test run name needs to be specified with -t");
       }
       return this.opts;
     }
