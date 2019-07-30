@@ -14,7 +14,9 @@ class OptionsReader
     missingOptions = @_validateOptions()
     throw new Error "script is missing these required options: #{missingOptions}" if missingOptions.length
     console.log("New Run: " + @opts.newrun + " Run Name: " + @opts.runname)
-    if @opts.newrun == true && @opts.runname == undefined
+    if @opts.newrun == 'true'
+      @opts.newrun = true
+    if @opts.newrun == true and @opts.runname == undefined
       throw new Error "If a new test run is generated a test run name needs to be specified with -t"
     @opts
 

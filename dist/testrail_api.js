@@ -74,14 +74,15 @@
       var action;
       action = REQUESTS[type] || '';
       PARAMS.forEach((key) => {
+        console.log("key: " + key);
+        console.log("@suite_config: " + this.suite_config);
+        console.log("@opts: " + opts);
         if (this.suite_config[key] !== void 0 && opts[key] === void 0) {
           action = action.replace(`{{${key}}}`, this.suite_config[key]);
         }
-        console.log("action: " + action);
         if (!(this.suite_config[key] !== void 0 && FILTERS.indexOf(key) !== -1)) {
           action = action.replace(`&${key}={{${key}}}`, '');
         }
-        console.log("action: " + action);
         if (opts[key] !== void 0) {
           action = action.replace(`{{${key}}}`, opts[key]);
         }

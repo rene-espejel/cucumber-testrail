@@ -51,11 +51,13 @@ class TestRailApi
 
   _generateUrl: (type, opts = {}) ->
     action = REQUESTS[type] or ''
+
     PARAMS.forEach (key) =>
+      console.log("key: " + key)
+      console.log("@suite_config: " + @suite_config)
+      console.log("@opts: " + opts)
       action = action.replace("{{#{key}}}", @suite_config[key]) if @suite_config[key] isnt undefined and opts[key] is undefined
-      console.log("action: " + action)
       action = action.replace("&#{key}={{#{key}}}", '') unless @suite_config[key] isnt undefined and FILTERS.indexOf(key) isnt -1
-      console.log("action: " + action)
       action = action.replace("{{#{key}}}", opts[key]) unless opts[key] is undefined
       console.log("action: " + action)
     "#{@config.testrail_url}/api/v2/#{action}"

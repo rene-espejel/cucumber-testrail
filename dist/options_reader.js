@@ -36,6 +36,9 @@
         throw new Error(`script is missing these required options: ${missingOptions}`);
       }
       console.log("New Run: " + this.opts.newrun + " Run Name: " + this.opts.runname);
+      if (this.opts.newrun === 'true') {
+        this.opts.newrun = true;
+      }
       if (this.opts.newrun === true && this.opts.runname === void 0) {
         throw new Error("If a new test run is generated a test run name needs to be specified with -t");
       }
