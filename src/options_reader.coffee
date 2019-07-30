@@ -1,6 +1,6 @@
 _ = require 'lodash'
 minimist = require 'minimist'
-REQUIRED_SCRIPT_OPTIONS = ['result', 'username', 'password', 'config']
+REQUIRED_SCRIPT_OPTIONS = ['result', 'username', 'password', 'config', 'runid']
 
 class OptionsReader
 
@@ -25,6 +25,5 @@ class OptionsReader
     required_options.splice 1, 1
     _.compact required_options.map (field) ->
       field unless field in params
-
 
 module.exports = OptionsReader

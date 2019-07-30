@@ -7,7 +7,7 @@
 
   minimist = require('minimist');
 
-  REQUIRED_SCRIPT_OPTIONS = ['result', 'username', 'password', 'config'];
+  REQUIRED_SCRIPT_OPTIONS = ['result', 'username', 'password', 'config', 'runid'];
 
   OptionsReader = class OptionsReader {
     constructor() {

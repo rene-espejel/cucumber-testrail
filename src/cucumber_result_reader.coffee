@@ -7,7 +7,6 @@ class CucumberResultReader
   constructor: ({symbols}, @file) ->
     @symbols = symbols or {}
 
-
   parse: () ->
     results = fs.readFileSync @file, 'utf8'
     testRailMetrics = {}
@@ -22,7 +21,6 @@ class CucumberResultReader
           testRailMetrics[symbol].push {case_id, status_id, comment}
     testRailMetrics
 
-
   _examineScenario: (steps) ->
     status_id = TESTRAIL_STATUSES.PASSED
     result = status_id: TESTRAIL_STATUSES.PASSED, comment: 'Test Passed'
@@ -35,13 +33,11 @@ class CucumberResultReader
           throw new Error "unknown step result status: #{step.result.status}"
     result
 
-
   _parseName: (name) ->
     [_, symbol, case_id] = name.split '-'
     throw new Error "symbol #{symbol} found in cucumber results is not configured in cucumber_testrail.yml" if @symbols.indexOf(symbol) is -1
     throw new Error "case_id #{case_id} found in cucumber results has an invalid format. id should be numeric" unless parseInt case_id
     {symbol, case_id}
-
 
   _testRailTags: (tags) ->
     tags.filter ({name}) -> name.indexOf('TestRail') isnt -1

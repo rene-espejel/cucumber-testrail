@@ -7,10 +7,6 @@ class TestRailService
   constructor: (@config, @suite_config, @opts, @testrail_metrics) ->
     @api = new TestRailApi @config, @opts, @suite_config, (@testrail_metrics[@suite_config.project_symbol] or [])
 
-#  fetchScenarios: co.wrap ->
-#    yield @api.fetchCaseDescriptions()
-
-
   sendTestResults: co.wrap ->
     case_ids = yield @api.fetchCases()
     if @opts.newrun == true

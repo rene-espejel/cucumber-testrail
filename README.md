@@ -43,9 +43,15 @@ Setup on Your Project
 
 2) This command will publish the results to testrail:
   ```
-  ./node_modules/.bin/cucumber-testrail -c /absolute/path/to/cucumber_testrail.yml -r /path/to/cucumber/results -u $TESTRAIL_USERNAME -p $TESTRAIL_PASSWORD -i runId -m '[SOME MESSAGE]'
+  ./node_modules/.bin/cucumber-testrail -c /absolute/path/to/cucumber_testrail.yml -r /path/to/cucumber/results -u $TESTRAIL_USERNAME -p $TESTRAIL_PASSWORD -i runId/planId -n newTestRun -t 'Test Run Name'
   ```
-  Here, [SOME MESSAGE] will be added as the name of your generated Test Run along with the LocalDate stamp. You can remove that option if you don't need it.
+  * -c absolute path to cucumber_testrail.yml (required)
+  * -r path to cucumber execution results (required)
+  * -u TestRail username (required)
+  * -p TestRail password (required)
+  * -i Test Run or Test Plan Id (required)
+  * -n New Test Run, when this option is set to true a Test Plan Id is required on -i and a Test Run name is required on -t.
+  * -t Test Run name, will be added on your generated Test Run in this format: *Test Run: (specified name) - MM/dd/yyy*
 
 4) Write Cucumber Tests with proper TestRail tags!
   In order to add feature tests that correlate with the above sample suite, add the following tag to the top of your scenario:
@@ -63,6 +69,6 @@ and execute it via NPM anywhere.
 Add a new script package.json like:
 ```json
     "scripts": {
-        "report": "cucumber-testrail -c /absolute/path/to/cucumber_testrail.yml -r /path/to/cucumber/results -u $TESTRAIL_USERNAME -p $TESTRAIL_PASSWORD -i runId -m '[SOME MESSAGE]'"
+        "report": "cucumber-testrail -c /absolute/path/to/cucumber_testrail.yml -r /path/to/cucumber/results -u $TESTRAIL_USERNAME -p $TESTRAIL_PASSWORD -i runId/planId -n newTestRun -t 'Test Run Name'"
     }
 ```

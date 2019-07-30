@@ -4,7 +4,6 @@ class RequestManager
 
   constructor: (@opts = {}) ->
 
-
   send: (type, {url, body}) ->
     opts = @_generateOpts url: url, username: @opts.username, password: @opts.password, body: body
     req = request.get
@@ -15,13 +14,11 @@ class RequestManager
       .catch (err) ->
         throw new Error err
 
-
   _generateOpts: ({url, body, username, password}) ->
     url: url
     headers:
       'Content-Type': 'application/json'
     body: JSON.stringify body
     auth: {username, password}
-
 
 module.exports = RequestManager

@@ -13,7 +13,6 @@ class TestRailApi
   constructor: (@config = {}, @opts = {}, @suite_config = {}, @metrics = []) ->
     @request_manager = new RequestManager @opts
 
-
   addResults: (testrun_id) ->
     url = @_generateUrl 'addResults', {testrun_id}
     yield @request_manager.send 'post', url: url, body:
@@ -21,21 +20,9 @@ class TestRailApi
     testrun_url = "#{@config.testrail_url}/runs/view/#{testrun_id}"
     console.log "Successfully added the following results for project symbol #{@suite_config.project_symbol} to TestRail. Visit #{testrun_url} to access."
 
-
-#  fetchCaseDescriptions: ->
-#  disables section_id filter to return table for entire suite
-#    @suite_config.section_id = undefined
-#    resp = yield @request_manager.send 'get', url: @_generateUrl 'getCases'
-#    table = new Table head: ['Case ID', 'Section ID', 'Title']
-#    resp.forEach ({section_id, title, id}) ->
-#      table.push [id, section_id, title]
-#    console.log table.toString()
-
-
   fetchCases: ->
     resp = yield @request_manager.send 'get', url: @_generateUrl 'getCases'
     resp.map ({id}) -> id
-
 
   generateTestRun: (case_ids, testplan_id) ->
     url = @_generateUrl 'addPlanEntry', {testplan_id}
@@ -47,15 +34,12 @@ class TestRailApi
     resp = yield @request_manager.send 'post', {url, body}
     resp.runs[resp.runs.length - 1].id
 
-
   _generateUrl: (type, opts = {}) ->
     action = REQUESTS[type] or ''
     PARAMS.forEach (key) =>
       action = action.replace("{{#{key}}}", @suite_config[key]) if @suite_config[key] isnt undefined and opts[key] is undefined
       action = action.replace("&#{key}={{#{key}}}", '') unless @suite_config[key] isnt undefined and FILTERS.indexOf(key) isnt -1
       action = action.replace("{{#{key}}}", opts[key]) unless opts[key] is undefined
-      console.log("action: " + action)
     "#{@config.testrail_url}/api/v2/#{action}"
-
 
 module.exports = TestRailApi

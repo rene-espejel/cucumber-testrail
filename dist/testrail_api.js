@@ -38,14 +38,6 @@
       return console.log(`Successfully added the following results for project symbol ${this.suite_config.project_symbol} to TestRail. Visit ${testrun_url} to access.`);
     }
 
-    //  fetchCaseDescriptions: ->
-    //  disables section_id filter to return table for entire suite
-    //    @suite_config.section_id = undefined
-    //    resp = yield @request_manager.send 'get', url: @_generateUrl 'getCases'
-    //    table = new Table head: ['Case ID', 'Section ID', 'Title']
-    //    resp.forEach ({section_id, title, id}) ->
-    //      table.push [id, section_id, title]
-    //    console.log table.toString()
     * fetchCases() {
       var resp;
       resp = (yield this.request_manager.send('get', {
@@ -80,9 +72,8 @@
           action = action.replace(`&${key}={{${key}}}`, '');
         }
         if (opts[key] !== void 0) {
-          action = action.replace(`{{${key}}}`, opts[key]);
+          return action = action.replace(`{{${key}}}`, opts[key]);
         }
-        return console.log("action: " + action);
       });
       return `${this.config.testrail_url}/api/v2/${action}`;
     }

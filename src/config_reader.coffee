@@ -15,7 +15,6 @@ class ConfigReader
     config.symbols = config.suites.map ({project_symbol}) -> project_symbol
     config
 
-
   _validateConfig: (config) ->
     throw new Error 'cucumber_testrail.yml is missing testrail_url' unless config.testrail_url
     throw new Error 'cucumber_testrail.yml is missing suites' unless config.suites.length
