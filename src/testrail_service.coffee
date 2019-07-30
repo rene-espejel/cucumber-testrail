@@ -5,7 +5,7 @@ TestRailApi = require './testrail_api'
 class TestRailService
 
   constructor: (@config, @suite_config, @opts, @testrail_metrics) ->
-    console.log("Opts en TR service: " + @opts)
+    console.log("Opts en TR service: " + @opts.toString())
     @api = new TestRailApi @config, @opts, @suite_config, (@testrail_metrics[@suite_config.project_symbol] or [])
 
 
