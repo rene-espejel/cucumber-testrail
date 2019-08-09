@@ -45,11 +45,14 @@
         case_id = metric.case_id;
         url = this._generateUrl('addResultsPerCase', {testrun_id, case_id});
         status_id = metric.status_id;
-        return this.postResults(url, status_id);
+        console.log("Test Case Result To Be Posted");
+        this.postResults(url, status_id);
+        return console.log("Test Case Result Posted");
       });
     }
 
     * postResults(url, status_id) {
+      console.log("Enterning POST Results");
       return (yield this.request_manager.send('post', {
         url: url,
         body: {
