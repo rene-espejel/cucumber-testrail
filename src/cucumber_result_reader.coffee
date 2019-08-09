@@ -1,6 +1,6 @@
 fs = require 'mz/fs'
 
-TESTRAIL_STATUSES = FAILED: 5, PASSED: 1
+TESTRAIL_STATUSES = FAILED: 5, PASSED: 1, RETEST: 4
 
 class CucumberResultReader
 
@@ -28,7 +28,9 @@ class CucumberResultReader
     result = status_id: TESTRAIL_STATUSES.PASSED, comment: 'Test Passed'
     steps.forEach (step) ->
       switch step.result.status
-        when 'passed', 'skipped' then return
+        when 'passed' then return
+        when 'skipped' then result =
+          status_id: TESTRAIL_STATUSES.RETEST, comment: "This test case have some skipped test cases"
         when 'failed' then result =
           status_id: TESTRAIL_STATUSES.FAILED, comment: step.result.error_message
         else

@@ -6,7 +6,8 @@
 
   TESTRAIL_STATUSES = {
     FAILED: 5,
-    PASSED: 1
+    PASSED: 1,
+    RETEST: 4
   };
 
   CucumberResultReader = class CucumberResultReader {
@@ -51,8 +52,12 @@
       steps.forEach(function(step) {
         switch (step.result.status) {
           case 'passed':
-          case 'skipped':
             break;
+          case 'skipped':
+            return result = {
+              status_id: TESTRAIL_STATUSES.RETEST,
+              comment: "This test case have some skipped test cases"
+            };
           case 'failed':
             return result = {
               status_id: TESTRAIL_STATUSES.FAILED,
