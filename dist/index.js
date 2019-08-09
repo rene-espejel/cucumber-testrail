@@ -31,7 +31,7 @@
         var testrail_service;
         testrail_service = new TestRailService(config, suite_config, opts, testrail_metrics);
         //      testrail_service.sendTestResults()
-        return testrail_service.sendTestResults();
+        return testrail_service.sendResultsPerCase();
       })));
     } catch (error) {
       e = error;
