@@ -47,7 +47,7 @@
         console.log(metric.case_id);
         console.log(metric.status_id);
         case_id = metric.case_id;
-        url = this._generateUrl('addResultsPerCase', {testplan_id, case_id});
+        url = this._generateUrl('addResultsPerCase', {testrun_id, case_id});
         return console.log(url);
       });
     }
