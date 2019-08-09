@@ -22,8 +22,9 @@ class TestRailApi
     console.log "Successfully added the following results for project symbol #{@suite_config.project_symbol} to TestRail. Visit #{testrun_url} to access."
 
   addResultsPerCase: (testrun_id) ->
-    for value of @metrics
-      console.log(value)
+    console.log(@metrics)
+    for metric of @metrics
+      console.log(metric)
       case_id = value.case_id
       url = @_generateUrl 'addResultsPerCase', {testrun_id, case_id}
       status_id =  value.status_id

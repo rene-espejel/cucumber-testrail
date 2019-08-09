@@ -40,10 +40,11 @@
     }
 
     * addResultsPerCase(testrun_id) {
-      var case_id, results, status_id, url, value;
+      var case_id, metric, results, status_id, url;
+      console.log(this.metrics);
       results = [];
-      for (value in this.metrics) {
-        console.log(value);
+      for (metric in this.metrics) {
+        console.log(metric);
         case_id = value.case_id;
         url = this._generateUrl('addResultsPerCase', {testrun_id, case_id});
         status_id = value.status_id;
