@@ -38,7 +38,6 @@
           });
         }) : void 0;
       });
-      console.log(testRailMetrics);
       return testRailMetrics;
     }
 
@@ -69,7 +68,6 @@
     _parseName(name) {
       var _, case_id, symbol;
       [_, symbol, case_id] = name.split('-');
-      console.log("Each TC: " + case_id);
       if (this.symbols.indexOf(symbol) === -1) {
         throw new Error(`symbol ${symbol} found in cucumber results is not configured in cucumber_testrail.yml`);
       }

@@ -26,14 +26,15 @@ class TestRailApi
     @metrics.forEach (metric) =>
       console.log(metric)
       console.log(metric.case_id)
+      console.log(metric.status_id)
       case_id = metric.case_id
       url = @_generateUrl 'addResultsPerCase', {testplan_id, case_id}
       console.log(url)
-      @postResults url, metric.status_id
-
-  postResults: (url, status_id) ->
-    yield @request_manager.send 'post', url: url, body:
-      status_id: status_id
+#      @postResults url, metric.status_id
+#
+#  postResults: (url, status_id) ->
+#    yield @request_manager.send 'post', url: url, body:
+#      status_id: status_id
 
   fetchCases: ->
     resp = yield @request_manager.send 'get', url: @_generateUrl 'getCases'

@@ -45,22 +45,18 @@
         var case_id, url;
         console.log(metric);
         console.log(metric.case_id);
+        console.log(metric.status_id);
         case_id = metric.case_id;
         url = this._generateUrl('addResultsPerCase', {testplan_id, case_id});
-        console.log(url);
-        return this.postResults(url, metric.status_id);
+        return console.log(url);
       });
     }
 
-    * postResults(url, status_id) {
-      return (yield this.request_manager.send('post', {
-        url: url,
-        body: {
-          status_id: status_id
-        }
-      }));
-    }
+    //      @postResults url, metric.status_id
 
+    //  postResults: (url, status_id) ->
+    //    yield @request_manager.send 'post', url: url, body:
+    //      status_id: status_id
     * fetchCases() {
       var resp;
       resp = (yield this.request_manager.send('get', {
