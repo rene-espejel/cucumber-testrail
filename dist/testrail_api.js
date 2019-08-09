@@ -40,13 +40,13 @@
     }
 
     * addResultsPerCase(testrun_id) {
-      var case_id, metric, results, status_id, url;
+      var case_id, results, status_id, url, value;
       results = [];
-      for (metric in this.metrics) {
-        console.log(metric);
-        case_id = metric.case_id;
+      for (value in this.metrics) {
+        console.log(value);
+        case_id = value.case_id;
         url = this._generateUrl('addResultsPerCase', {testrun_id, case_id});
-        status_id = metric.status_id;
+        status_id = value.status_id;
         console.log(url + " " + status_id);
         results.push((yield this.request_manager.send('post', {
           url: url,
