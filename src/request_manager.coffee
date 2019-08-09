@@ -14,10 +14,9 @@ class RequestManager
         JSON.parse resp
       .catch (err) ->
         try
-          console.log("Failure Response: " + err)
-          JSON.parse err
-          console.log(err.error)
-          if err.error == "Field :case_id is not a valid test case."
+          failResponse = JSON.parse err
+          console.log("JSON error: " + failResponse.error)
+          if failResponse.error == "Field :case_id is not a valid test case."
             console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run")
           else
             throw new Error err
