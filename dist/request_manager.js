@@ -22,6 +22,7 @@
         req = request.post;
       }
       return req(opts).then(function(resp) {
+        console.log(resp);
         return JSON.parse(resp);
       }).catch(function(err) {
         throw new Error(err);

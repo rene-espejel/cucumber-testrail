@@ -10,6 +10,7 @@ class RequestManager
     req = request.post if type is 'post'
     req opts
       .then (resp) ->
+        console.log(resp)
         JSON.parse resp
       .catch (err) ->
         throw new Error err

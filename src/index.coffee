@@ -25,4 +25,4 @@ co ->
 #      testrail_service.sendTestResults()
       testrail_service.sendResultsPerCase()
   catch e
-    console.log "#{e}"
+    console.log "??? #{e}"
