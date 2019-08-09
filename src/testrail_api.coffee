@@ -22,19 +22,15 @@ class TestRailApi
     console.log "Successfully added the following results for project symbol #{@suite_config.project_symbol} to TestRail. Visit #{testrun_url} to access."
 
   addResultsPerCase: (testrun_id) ->
-    console.log(@metrics)
     @metrics.forEach (metric) =>
-      console.log(metric)
-      console.log(metric.case_id)
-      console.log(metric.status_id)
       case_id = metric.case_id
       url = @_generateUrl 'addResultsPerCase', {testrun_id, case_id}
-      console.log(url)
-#      @postResults url, metric.status_id
-#
-#  postResults: (url, status_id) ->
-#    yield @request_manager.send 'post', url: url, body:
-#      status_id: status_id
+      status_id =  metric.status_id
+      @postResults url, status_id
+
+  postResults: (url, status_id) ->
+    yield @request_manager.send 'post', url: url, body:
+      status_id: status_id
 
   fetchCases: ->
     resp = yield @request_manager.send 'get', url: @_generateUrl 'getCases'

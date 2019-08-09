@@ -40,23 +40,24 @@
     }
 
     addResultsPerCase(testrun_id) {
-      console.log(this.metrics);
       return this.metrics.forEach((metric) => {
-        var case_id, url;
-        console.log(metric);
-        console.log(metric.case_id);
-        console.log(metric.status_id);
+        var case_id, status_id, url;
         case_id = metric.case_id;
         url = this._generateUrl('addResultsPerCase', {testrun_id, case_id});
-        return console.log(url);
+        status_id = metric.status_id;
+        return this.postResults(url, status_id);
       });
     }
 
-    //      @postResults url, metric.status_id
+    * postResults(url, status_id) {
+      return (yield this.request_manager.send('post', {
+        url: url,
+        body: {
+          status_id: status_id
+        }
+      }));
+    }
 
-    //  postResults: (url, status_id) ->
-    //    yield @request_manager.send 'post', url: url, body:
-    //      status_id: status_id
     * fetchCases() {
       var resp;
       resp = (yield this.request_manager.send('get', {
