@@ -4,14 +4,15 @@
 
   Table = require('cli-table');
 
-  PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id', "testplan_id"];
+  PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id', "testplan_id", "case_id"];
 
   FILTERS = ['section_id', 'suite_id'];
 
   REQUESTS = {
     addPlanEntry: 'add_plan_entry/{{testplan_id}}',
     getCases: 'get_cases/{{project_id}}&suite_id={{suite_id}}&section_id={{section_id}}',
-    addResults: 'add_results_for_cases/{{testrun_id}}'
+    addResults: 'add_results_for_cases/{{testrun_id}}',
+    addResultsPerCase: 'add_result_for_case/{{testrun_id}}/{{case_id}}'
   };
 
   RequestManager = require('./request_manager');
@@ -36,6 +37,28 @@
       });
       testrun_url = `${this.config.testrail_url}/runs/view/${testrun_id}`;
       return console.log(`Successfully added the following results for project symbol ${this.suite_config.project_symbol} to TestRail. Visit ${testrun_url} to access.`);
+    }
+
+    addResultsPerCase(testrun_id) {
+      console.log(this.metrics);
+      return this.metrics.forEach((metric) => {
+        var case_id, url;
+        console.log(metric);
+        console.log(metric.case_id);
+        case_id = metric.case_id;
+        url = this._generateUrl('addResultsPerCase', {testplan_id, case_id});
+        console.log(url);
+        return this.postResults(url, metric.status_id);
+      });
+    }
+
+    * postResults(url, status_id) {
+      return (yield this.request_manager.send('post', {
+        url: url,
+        body: {
+          status_id: status_id
+        }
+      }));
     }
 
     * fetchCases() {

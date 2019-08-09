@@ -30,6 +30,7 @@
       return (yield Promise.all(config.suites.map((suite_config) => {
         var testrail_service;
         testrail_service = new TestRailService(config, suite_config, opts, testrail_metrics);
+        //      testrail_service.sendTestResults()
         return testrail_service.sendTestResults();
       })));
     } catch (error) {

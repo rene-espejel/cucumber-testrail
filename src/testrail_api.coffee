@@ -1,10 +1,11 @@
 Table = require 'cli-table'
-PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id', "testplan_id"]
+PARAMS = ['project_id', 'suite_id', 'section_id', 'testrun_id', "testplan_id", "case_id"]
 FILTERS = ['section_id', 'suite_id']
 REQUESTS =
   addPlanEntry: 'add_plan_entry/{{testplan_id}}'
   getCases: 'get_cases/{{project_id}}&suite_id={{suite_id}}&section_id={{section_id}}'
   addResults: 'add_results_for_cases/{{testrun_id}}'
+  addResultsPerCase: 'add_result_for_case/{{testrun_id}}/{{case_id}}'
 
 RequestManager = require './request_manager'
 
@@ -19,6 +20,20 @@ class TestRailApi
       results: @metrics
     testrun_url = "#{@config.testrail_url}/runs/view/#{testrun_id}"
     console.log "Successfully added the following results for project symbol #{@suite_config.project_symbol} to TestRail. Visit #{testrun_url} to access."
+
+  addResultsPerCase: (testrun_id) ->
+    console.log(@metrics)
+    @metrics.forEach (metric) =>
+      console.log(metric)
+      console.log(metric.case_id)
+      case_id = metric.case_id
+      url = @_generateUrl 'addResultsPerCase', {testplan_id, case_id}
+      console.log(url)
+      @postResults url, metric.status_id
+
+  postResults: (url, status_id) ->
+    yield @request_manager.send 'post', url: url, body:
+      status_id: status_id
 
   fetchCases: ->
     resp = yield @request_manager.send 'get', url: @_generateUrl 'getCases'

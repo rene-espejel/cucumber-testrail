@@ -22,6 +22,7 @@ co ->
     testrail_metrics = yield cucumber_reader.parse()
     yield Promise.all config.suites.map (suite_config) =>
       testrail_service = new TestRailService config, suite_config, opts, testrail_metrics
+#      testrail_service.sendTestResults()
       testrail_service.sendTestResults()
   catch e
     console.log "#{e}"

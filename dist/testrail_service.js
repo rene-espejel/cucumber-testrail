@@ -13,7 +13,8 @@
         this.suite_config = suite_config;
         this.opts = opts;
         this.testrail_metrics = testrail_metrics;
-        this.api = new TestRailApi(this.config, this.opts, this.suite_config, this.testrail_metrics[this.suite_config.project_symbol] || []);
+        //    @api = new TestRailApi @config, @opts, @suite_config, (@testrail_metrics[@suite_config.project_symbol] or [])
+        this.api = new TestRailApi(this.config, this.opts, this.suite_config, this.testrail_metrics);
       }
 
     };
@@ -27,6 +28,12 @@
         testrun_id = this.opts.runid;
       }
       return (yield this.api.addResults(testrun_id));
+    });
+
+    TestRailService.prototype.sendResultsPerCase = co.wrap(function*() {
+      var testrun_id;
+      testrun_id = this.opts.runid;
+      return (yield this.api.addResultsPerCase(testrun_id));
     });
 
     return TestRailService;
