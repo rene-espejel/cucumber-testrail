@@ -10,9 +10,10 @@ class RequestManager
     req = request.post if type is 'post'
     req opts
       .then (resp) ->
-        console.log(resp)
+        console.log("Successful Response: " + resp)
         JSON.parse resp
       .catch (err) ->
+        console.log("Failure Response: " + err)
         throw new Error err
 
   _generateOpts: ({url, body, username, password}) ->

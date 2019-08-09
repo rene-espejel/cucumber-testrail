@@ -22,9 +22,10 @@
         req = request.post;
       }
       return req(opts).then(function(resp) {
-        console.log(resp);
+        console.log("Successful Response: " + resp);
         return JSON.parse(resp);
       }).catch(function(err) {
+        console.log("Failure Response: " + err);
         throw new Error(err);
       });
     }
