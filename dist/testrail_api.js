@@ -43,6 +43,7 @@
       var case_id, metric, results, status_id, url;
       results = [];
       for (metric in this.metrics) {
+        console.log(metric);
         case_id = metric.case_id;
         url = this._generateUrl('addResultsPerCase', {testrun_id, case_id});
         status_id = metric.status_id;
