@@ -23,7 +23,7 @@ class TestRailApi
 
   addResultsPerCase: (testrun_id) ->
     console.log(@metrics)
-    for metric of @metrics
+    for metric in @metrics
       console.log(metric)
       case_id = value.case_id
       url = @_generateUrl 'addResultsPerCase', {testrun_id, case_id}
