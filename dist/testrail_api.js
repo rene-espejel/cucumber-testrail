@@ -41,18 +41,18 @@
 
     addResultsPerCase(testrun_id) {
       return this.metrics.forEach((metric) => {
-        var case_id, status_id, url;
+        var case_id, response, status_id, url;
         case_id = metric.case_id;
         url = this._generateUrl('addResultsPerCase', {testrun_id, case_id});
         status_id = metric.status_id;
         console.log("Test Case Result To Be Posted");
-        this.postResults(url, status_id);
-        return console.log("Test Case Result Posted");
+        response = this.postResults(url, status_id);
+        return console.log("Test Case Result Posted" + response);
       });
     }
 
     * postResults(url, status_id) {
-      console.log("Enterning POST Results");
+      console.log("Entering POST Results");
       return (yield this.request_manager.send('post', {
         url: url,
         body: {
