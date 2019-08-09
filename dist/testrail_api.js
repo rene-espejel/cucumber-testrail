@@ -47,7 +47,7 @@
       for (i = 0, len = ref.length; i < len; i++) {
         metric = ref[i];
         console.log(metric);
-        case_id = value.case_id;
+        case_id = metric.case_id;
         url = this._generateUrl('addResultsPerCase', {testrun_id, case_id});
         status_id = metric.status_id;
         console.log(url + " " + status_id);
