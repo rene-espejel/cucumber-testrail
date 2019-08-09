@@ -27,7 +27,7 @@ class TestRailApi
       console.log(metric)
       case_id = value.case_id
       url = @_generateUrl 'addResultsPerCase', {testrun_id, case_id}
-      status_id =  value.status_id
+      status_id =  metric.status_id
       console.log(url + " " + status_id)
       yield @request_manager.send 'post', url: url, body:
         status_id: status_id
