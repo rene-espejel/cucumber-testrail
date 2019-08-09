@@ -19,7 +19,7 @@ class CucumberResultReader
           {symbol, case_id} = @_parseName name
           {comment, status_id} = @_examineScenario steps
           testRailMetrics[symbol].push {case_id, status_id, comment}
-    console.log("TestRailMetrics: "  + testRailMetrics)
+    console.log(testRailMetrics)
     testRailMetrics
 
   _examineScenario: (steps) ->

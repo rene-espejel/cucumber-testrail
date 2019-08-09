@@ -38,7 +38,7 @@
           });
         }) : void 0;
       });
-      console.log("TestRailMetrics: " + testRailMetrics);
+      console.log(testRailMetrics);
       return testRailMetrics;
     }
 
