@@ -25,7 +25,18 @@
         console.log("Successful Response: " + resp);
         return JSON.parse(resp);
       }).catch(function(err) {
-        console.log("Failure Response: " + err);
+        try {
+          console.log("Failure Response: " + err);
+          JSON.parse(err);
+          console.log(err.error);
+          if (err.error === "Field :case_id is not a valid test case.") {
+            console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
+          } else {
+            throw new Error(err);
+          }
+        } catch (error) {
+          throw new Error(err);
+        }
         throw new Error(err);
       });
     }

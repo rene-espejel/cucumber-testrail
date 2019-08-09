@@ -13,7 +13,16 @@ class RequestManager
         console.log("Successful Response: " + resp)
         JSON.parse resp
       .catch (err) ->
-        console.log("Failure Response: " + err)
+        try
+          console.log("Failure Response: " + err)
+          JSON.parse err
+          console.log(err.error)
+          if err.error == "Field :case_id is not a valid test case."
+            console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run")
+          else
+            throw new Error err
+        catch
+          throw new Error err
         throw new Error err
 
   _generateOpts: ({url, body, username, password}) ->
