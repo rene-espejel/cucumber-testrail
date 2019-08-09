@@ -19,6 +19,7 @@ class CucumberResultReader
           {symbol, case_id} = @_parseName name
           {comment, status_id} = @_examineScenario steps
           testRailMetrics[symbol].push {case_id, status_id, comment}
+    console.log("TestRailMetrics: "  + testRailMetrics)
     testRailMetrics
 
   _examineScenario: (steps) ->
@@ -35,6 +36,7 @@ class CucumberResultReader
 
   _parseName: (name) ->
     [_, symbol, case_id] = name.split '-'
+    console.log("Each TC: " + case_id)
     throw new Error "symbol #{symbol} found in cucumber results is not configured in cucumber_testrail.yml" if @symbols.indexOf(symbol) is -1
     throw new Error "case_id #{case_id} found in cucumber results has an invalid format. id should be numeric" unless parseInt case_id
     {symbol, case_id}
