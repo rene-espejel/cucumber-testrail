@@ -18,10 +18,9 @@
     parse() {
       var results, testRailMetrics;
       results = fs.readFileSync(this.file, 'utf8');
-      testRailMetrics = {};
-      this.symbols.forEach(function(item) {
-        return testRailMetrics[item] = [];
-      });
+      //    testRailMetrics = {}
+      testRailMetrics = [];
+      //    @symbols.forEach (item) -> testRailMetrics[item] = []
       JSON.parse(results).forEach((result) => {
         var ref;
         return (ref = result.elements) != null ? ref.forEach(({tags = [], type, steps}) => {
@@ -34,7 +33,8 @@
             var case_id, comment, status_id, symbol;
             ({symbol, case_id} = this._parseName(name));
             ({comment, status_id} = this._examineScenario(steps));
-            return testRailMetrics[symbol].push({case_id, status_id, comment});
+            //          testRailMetrics[symbol].push {case_id, status_id, comment}
+            return testRailMetrics.push({case_id, status_id, comment});
           });
         }) : void 0;
       });

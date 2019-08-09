@@ -9,8 +9,9 @@ class CucumberResultReader
 
   parse: () ->
     results = fs.readFileSync @file, 'utf8'
-    testRailMetrics = {}
-    @symbols.forEach (item) -> testRailMetrics[item] = []
+#    testRailMetrics = {}
+    testRailMetrics = []
+#    @symbols.forEach (item) -> testRailMetrics[item] = []
     JSON.parse(results).forEach (result) =>
       result.elements?.forEach ({tags=[], type, steps}) =>
         testrail_ids = @_testRailTags tags
@@ -18,7 +19,8 @@ class CucumberResultReader
         testrail_ids.forEach ({name}) =>
           {symbol, case_id} = @_parseName name
           {comment, status_id} = @_examineScenario steps
-          testRailMetrics[symbol].push {case_id, status_id, comment}
+#          testRailMetrics[symbol].push {case_id, status_id, comment}
+          testRailMetrics.push {case_id, status_id, comment}
     console.log(testRailMetrics)
     testRailMetrics
 
