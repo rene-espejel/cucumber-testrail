@@ -24,10 +24,8 @@
       return req(opts).then(function(resp) {
         return JSON.parse(resp);
       }).catch(function(err) {
-        var errorResponse;
-        errorResponse = `${err}`;
-        console.log(errorResponse.includes("Field: case_id is not a valid test case."));
-        if (errorResponse.includes("Field: case_id is not a valid test case.")) {
+        console.log(err.error);
+        if (err.error.includes("Field: case_id is not a valid test case.")) {
           return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
         } else {
           throw new Error(err);
