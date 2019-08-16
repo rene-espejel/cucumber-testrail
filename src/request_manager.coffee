@@ -13,7 +13,7 @@ class RequestManager
         JSON.parse resp
       .catch (err) ->
           errorResponse = "#{err}"
-          if errorResponse == 'StatusCodeError: 400 - "{\"error\":\"Field: case_id is not a valid test case.\"}"'
+          if errorResponse == "StatusCodeError: 400 - \"{\\\"error\\\":\\\"Field: case_id is not a valid test case.\\\"}\""
             console.log "The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run"
           else
             throw new Error err
