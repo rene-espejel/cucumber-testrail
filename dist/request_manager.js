@@ -24,18 +24,13 @@
       return req(opts).then(function(resp) {
         return JSON.parse(resp);
       }).catch(function(err) {
-        var e, errorJSON, errorResponse;
-        errorResponse = err.error;
-        try {
-          errorJSON = JSON.parse(errorResponse);
-          if (errorJSON.error === "Field: case_id is not a valid test case.") {
-            return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
-          } else {
-            throw new Error(err);
-          }
-        } catch (error) {
-          e = error;
-          throw new Error(e);
+        var errorResponse;
+        errorResponse = err.error.toString();
+        console.log(errorResponse === "Field: case_id is not a valid test case.");
+        if (errorResponse === "Field: case_id is not a valid test case.") {
+          return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
+        } else {
+          throw new Error(err);
         }
       });
     }

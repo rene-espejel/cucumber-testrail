@@ -12,15 +12,13 @@ class RequestManager
       .then (resp) ->
         JSON.parse resp
       .catch (err) ->
-          errorResponse = err.error
-          try
-            errorJSON = JSON.parse errorResponse
-            if errorJSON.error == "Field: case_id is not a valid test case."
-              console.log "The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run"
-            else
-              throw new Error err
-          catch e
-            throw new Error e
+        errorResponse = err.error.toString()
+        console.log errorResponse == "Field: case_id is not a valid test case."
+        if errorResponse == "Field: case_id is not a valid test case."
+          console.log "The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run"
+        else
+          throw new Error err
+
 
   _generateOpts: ({url, body, username, password}) ->
     url: url
