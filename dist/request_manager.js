@@ -22,23 +22,13 @@
         req = request.post;
       }
       return req(opts).then(function(resp) {
-        console.log("Successful Response: " + resp);
         return JSON.parse(resp);
       }).catch(function(err) {
-        var e, expectedError;
-        try {
-          console.log("Failure Response: " + err);
-          JSON.parse(err);
-          expectedError = err.error;
-          console.log(expectedError);
-          if (expectedError === "Field :case_id is not a valid") {
-            return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
-          } else {
-            throw new Error(err);
-          }
-        } catch (error) {
-          e = error;
-          throw new Error(e);
+        console.log("Err: " + err);
+        if (err === "StatusCodeError: 400 - \"{\"error\":\"Field: case_id is not a valid test case.\"}") {
+          return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
+        } else {
+          throw new Error(err);
         }
       });
     }

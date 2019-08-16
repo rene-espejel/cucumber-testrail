@@ -10,20 +10,13 @@ class RequestManager
     req = request.post if type is 'post'
     req opts
       .then (resp) ->
-        console.log("Successful Response: " + resp)
         JSON.parse resp
       .catch (err) ->
-        try
-          console.log("Failure Response: " + err)
-          JSON.parse err
-          expectedError = err.error
-          console.log(expectedError)
-          if expectedError == "Field :case_id is not a valid"
-            console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run")
+          console.log "Err: " + err
+          if err == "StatusCodeError: 400 - \"{\"error\":\"Field: case_id is not a valid test case.\"}"
+            console.log "The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run"
           else
             throw new Error err
-        catch e
-          throw new Error e
 
   _generateOpts: ({url, body, username, password}) ->
     url: url
