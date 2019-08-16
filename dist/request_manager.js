@@ -25,8 +25,7 @@
         return JSON.parse(resp);
       }).catch(function(err) {
         var errorResponse;
-        console.log(err);
-        errorResponse = err.error.error;
+        errorResponse = err.error;
         console.log(errorResponse);
         if (errorResponse.includes("Field: case_id is not a valid test case.")) {
           return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
