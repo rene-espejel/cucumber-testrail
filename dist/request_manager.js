@@ -31,7 +31,7 @@
           JSON.parse(err);
           expectedError = err.error;
           console.log(expectedError);
-          if (expectedError === "Field :case_id is not a valid test case.") {
+          if (expectedError === "Field :case_id is not a valid") {
             return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
           } else {
             throw new Error(err);
