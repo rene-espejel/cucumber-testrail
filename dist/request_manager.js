@@ -26,7 +26,7 @@
       }).catch(function(err) {
         var errorResponse, errorString;
         errorResponse = err.error;
-        errorString = errorResponse.error.toString;
+        errorString = errorResponse.toString;
         console.log(errorString);
         console.log(errorString === "Field: case_id is not a valid test case.");
         if (errorString === "Field: case_id is not a valid test case.") {
