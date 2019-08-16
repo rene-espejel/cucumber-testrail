@@ -24,8 +24,9 @@
       return req(opts).then(function(resp) {
         return JSON.parse(resp);
       }).catch(function(err) {
-        console.log(`${err}`);
-        if (err === 'StatusCodeError: 400 - "{\"error\":\"Field: case_id is not a valid test case.\"}"') {
+        var errorResponse;
+        errorResponse = `${err}`;
+        if (errorResponse === 'StatusCodeError: 400 - "{\"error\":\"Field: case_id is not a valid test case.\"}"') {
           return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
         } else {
           throw new Error(err);
