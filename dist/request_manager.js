@@ -26,9 +26,8 @@
       }).catch(function(err) {
         var errorResponse;
         errorResponse = err.error;
-        console.log(errorResponse instanceof String);
-        console.log("Field: case_id is not a valid test case." instanceof String);
-        console.log(errorResponse);
+        console.log(typeof errorResponse);
+        console.log(typeof "Field: case_id is not a valid test case.");
         console.log(errorResponse === "Field: case_id is not a valid test case.");
         if (errorResponse === "Field: case_id is not a valid test case.") {
           return console.log("The test case with id: " + url.substr(url.lastIndexOf("/") + 1) + " is not on the selected Test Run");
